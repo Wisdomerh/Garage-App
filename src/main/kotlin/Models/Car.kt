@@ -8,7 +8,7 @@ data class Car(
     val color: String,
     val price: Double,
     var isCarRepaired: Boolean = false,
-    val parts: MutableList<Parts> = mutableListOf()
+    val parts: List<Parts> = listOf()
 ) {
     override fun toString(): String {
         return """
@@ -18,6 +18,8 @@ data class Car(
             Color:           $color
             Price:           $price
             Car Repaired:    ${if (isCarRepaired) "Yes" else "No"}
+            Parts:           ${parts.joinToString(separator = "\n")}
         """.trimIndent()
     }
 }
+
