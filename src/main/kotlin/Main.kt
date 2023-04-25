@@ -8,7 +8,6 @@ import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import utils.ScannerInput.readYesNo
-import java.io.File
 
 private val carAPI = CarAPI()
 private val partsAPI = PartsAPI()
@@ -27,12 +26,12 @@ fun mainMenu() : Int {
          > ----------------------------------
          > |    MENU                        |
          > |   1) Add a car                 |
-         > |   2) List all cars             |
+         > |   2) List                      |
          > |   3) Update a car              |
          > |   4) Remove a car              |
          > |   5) Search cars               |
-         > |   6) Save garage               |
-         > |   7) Load garage               |
+         > |   7) Save garage               |
+         > |   8) Load garage               |
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -67,9 +66,9 @@ fun runMenu() {
         // Execute the corresponding function based on the user's choice
         when (option) {
             1  -> addCar()
-            2  -> listCars()
+            2  -> list()
            // 3  -> updateCar()
-            4  -> removeCar()
+            4  -> remove()
             // If the user chooses to search for cars, display the search menu and read the user's choice
            // 5  -> searchMenu()
             0  -> exitApp()
@@ -82,6 +81,11 @@ fun listCars() {
     println( carAPI.listAllCars())
 }
 
+fun listParts() {
+    println(partsAPI.listAllParts())
+}
+
+
 // This function adds a new car to the garage
 fun addCar() {
     val make = readNextLine("Enter the make of the car: ")
@@ -90,21 +94,24 @@ fun addCar() {
     val color = readNextLine("Enter the color of the car: ")
     val price = readNextDouble("Enter the price of the car: ")
     val isRepaired = readYesNo("Is the car repaired? (y/n): ")
+    val partsList = mutableListOf<Parts>()
     if (isRepaired == true) {
         println("Adding parts for ${make} ${model} (${year})")
 
-            val partName = readNextLine("Enter part name: ")
-            val partNumber = readNextLine("Enter part number: ")
-            val manufacturer = readNextLine("Enter manufacturer: ")
-            val price = readNextDouble("Enter price: ")
-            val part = partsAPI.add(Parts(partName, partNumber, manufacturer, price))
-            val isAdded = carAPI.add(Car(make, model, year, color, price, isRepaired))
-            if (isAdded) {
-                println("Car added successfully!")
-            } else {
-                println("Unable to add car.")
-            }
-        }else if(isRepaired == false){
+        val partName = readNextLine("Enter part name: ")
+        val partNumber = readNextLine("Enter part number: ")
+        val manufacturer = readNextLine("Enter manufacturer: ")
+        val price = readNextDouble("Enter price: ")
+        val part = Parts(partName, partNumber, manufacturer, price)
+        partsList.add(part)
+        partsAPI.add(part)
+        val isAdded = carAPI.add(Car(make, model, year, color, price, isRepaired, partsList))
+        if (isAdded) {
+            println("Car added successfully!")
+        } else {
+            println("Unable to add car.")
+        }
+    } else if (isRepaired == false) {
         val isAdded = carAPI.add(Car(make, model, year, color, price, isRepaired))
 
 
@@ -114,8 +121,29 @@ fun addCar() {
             println("Unable to add car.")
         }
     }
-    }
+}
 
+fun remove() {
+    var option: Int
+    do {println("""
+            > ----------------------------------
+            > |         REMOVE MENU             |
+            > ----------------------------------
+            > |   1) Remove Car                |
+            > |   2) Remove Part               |
+            > |   0) Return to Main Menu       |
+            > ----------------------------------
+            > """.trimMargin(">"))
+
+        option = readNextInt("Enter an option: ")
+        when (option) {
+            1 -> removeCar()
+            2 -> removePart()
+            0 -> println("Returning to Main Menu...")
+            else -> println("Invalid option. Please try again.")
+        }
+    } while (option != 0)
+}
 
 fun removeCar() {
     listCars()
@@ -132,7 +160,52 @@ fun removeCar() {
     }
 }
 
+fun removePart() {
+    listParts()
+    if (partsAPI.numberOfParts() > 0) {
+        //only ask the user to choose the car to remove if parts exist
+        val indexToRemove = readNextInt("Enter the index of the part to remove: ")
+        //pass the index of the car to PartsAPI for removing and check for success.
+        val partToRemove = partsAPI.removePart(indexToRemove)
+        if (partToRemove != null) {
+            println("Removal Successful! Removed part: ${partToRemove.partName} ${partToRemove.partNumber}")
+        } else {
+            println("Removal NOT Successful")
+        }
+    }
+}
+
 fun exitApp(){
     println("Exiting...bye")
     System.exit(0)
+}
+fun list() {
+    var choice: Int
+
+    do {
+        println("> ----------------------------------")
+        println("> |         GARAGE APP             |")
+        println("> ----------------------------------")
+        println("> |           LIST MENU            |")
+        println("> |   1) List all cars             |")
+        println("> |   2) List all parts            |")
+        println("> |   3) List cars with parts      |")
+        println("> ----------------------------------")
+        println("> |   0) Return to Main Menu       |")
+        println("> ----------------------------------")
+
+        choice = readNextInt("Enter your choice: ")
+
+        when (choice) {
+            1 -> listCars()
+            2 -> listParts()
+            3 -> listCarsWithParts()
+            0 -> println("Returning to main menu...")
+            else -> println("Invalid choice. Please try again.")
+        }
+    } while (choice != 0)
+}
+
+fun listCarsWithParts() {
+    println( carAPI.listCarAndParts())
 }

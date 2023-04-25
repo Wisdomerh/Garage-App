@@ -33,8 +33,19 @@ class CarAPI {
     fun numberOfCars(): Int {
         return carList.size
     }
-    fun listAllCars(): String =
+    fun listCarAndParts(): String =
         if  (carList.isEmpty()) "No Cars stored in the system"
         else formatListString(carList)
+
+    fun listAllCars(): List<String> {
+        return if (carList.isEmpty()) {
+            listOf("No Cars stored in the system")
+        } else {
+            carList.map {
+                "Make: ${it.make}, Model: ${it.model}, Year: ${it.year}, Color: ${it.color}, Price: ${it.price}"
+            }
+        }
+    }
+
 }
 
