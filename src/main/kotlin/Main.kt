@@ -63,7 +63,7 @@ fun runMenu() {
         // Execute the corresponding function based on the user's choice
         when (option) {
             1  -> addCar()
-           // 2  -> listCars()
+            2  -> listCars()
            // 3  -> updateCar()
             4  -> removeCar()
             // If the user chooses to search for cars, display the search menu and read the user's choice
@@ -72,6 +72,10 @@ fun runMenu() {
             else -> println("Invalid option entered: ${option}")
         }
     } while (true)
+}
+
+fun listCars() {
+    println( carAPI.listAllCars())
 }
 
 // This function adds a new car to the garage
@@ -91,7 +95,7 @@ fun addCar() {
 }
 
 fun removeCar() {
-    //listCars()
+    listCars()
     if (carAPI.numberOfCars() > 0) {
         //only ask the user to choose the car to remove if cars exist
         val indexToRemove = readNextInt("Enter the index of the car to remove: ")
