@@ -77,4 +77,23 @@ object ScannerInput {
         print(prompt)
         return Scanner(System.`in`).next()[0]
     }
+
+    /**
+     * Read a "yes" or "no" answer from the user.
+     *
+     * @param prompt The information printed to the console for the user to read
+     * @return true if the user enters "yes", false if they enter "no".
+     */
+    @JvmStatic
+    fun readYesNo(prompt: String): Boolean {
+        while (true) {
+            print(prompt)
+            when (readNextLine("").toLowerCase()) {
+                "y", "yes" -> return true
+                "n", "no" -> return false
+                else -> println("Invalid input. Please enter y or n.")
+            }
+        }
+    }
+
 }
