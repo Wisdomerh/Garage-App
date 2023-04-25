@@ -65,7 +65,7 @@ fun runMenu() {
             1  -> addCar()
            // 2  -> listCars()
            // 3  -> updateCar()
-          //  4  -> removeCar()
+            4  -> removeCar()
             // If the user chooses to search for cars, display the search menu and read the user's choice
            // 5  -> searchMenu()
             0  -> exitApp()
@@ -89,6 +89,22 @@ fun addCar() {
         println("Unable to add car.")
     }
 }
+
+fun removeCar() {
+    //listCars()
+    if (carAPI.numberOfCars() > 0) {
+        //only ask the user to choose the car to remove if cars exist
+        val indexToRemove = readNextInt("Enter the index of the car to remove: ")
+        //pass the index of the car to CarAPI for removing and check for success.
+        val carToRemove = carAPI.removeCar(indexToRemove)
+        if (carToRemove != null) {
+            println("Removal Successful! Removed car: ${carToRemove.make} ${carToRemove.model}")
+        } else {
+            println("Removal NOT Successful")
+        }
+    }
+}
+
 fun exitApp(){
     println("Exiting...bye")
     System.exit(0)
