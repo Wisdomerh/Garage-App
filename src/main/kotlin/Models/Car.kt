@@ -4,5 +4,6 @@ data class Car(
     val make: String,
     val model: String,
     val year: Int,
-    val color: String
+    val color: String,
+    val price: Double
 )
