@@ -1,13 +1,17 @@
 
 import Contollers.CarAPI
+import Contollers.PartsAPI
 import Models.Car
+import Models.Parts
 import utils.ScannerInput
 import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
+import utils.ScannerInput.readYesNo
 import java.io.File
 
 private val carAPI = CarAPI()
+private val partsAPI = PartsAPI()
 // This is the main function which is the entry point of the program
 fun main(args: Array<String>) {
     // This function runs the main menu of the application
@@ -85,14 +89,33 @@ fun addCar() {
     val year = readNextInt("Enter the year of the car: ")
     val color = readNextLine("Enter the color of the car: ")
     val price = readNextDouble("Enter the price of the car: ")
-    val isAdded = carAPI.add(Car(make, model,   year, color, price))
+    val isRepaired = readYesNo("Is the car repaired? (y/n): ")
+    if (isRepaired == true) {
+        println("Adding parts for ${make} ${model} (${year})")
 
-    if (isAdded) {
-        println("Car added successfully!")
-    } else {
-        println("Unable to add car.")
+            val partName = readNextLine("Enter part name: ")
+            val partNumber = readNextLine("Enter part number: ")
+            val manufacturer = readNextLine("Enter manufacturer: ")
+            val price = readNextDouble("Enter price: ")
+            val part = partsAPI.add(Parts(partName, partNumber, manufacturer, price))
+            val isAdded = carAPI.add(Car(make, model, year, color, price, isRepaired))
+            if (isAdded) {
+                println("Car added successfully!")
+            } else {
+                println("Unable to add car.")
+            }
+        }else if(isRepaired == false){
+        val isAdded = carAPI.add(Car(make, model, year, color, price, isRepaired))
+
+
+        if (isAdded) {
+            println("Car added successfully!")
+        } else {
+            println("Unable to add car.")
+        }
     }
-}
+    }
+
 
 fun removeCar() {
     listCars()

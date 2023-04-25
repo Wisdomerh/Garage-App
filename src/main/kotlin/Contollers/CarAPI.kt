@@ -3,10 +3,10 @@ package Contollers
 import Models.Car
 
 class CarAPI {
-    private fun formatListString(notesToFormat: List<Car>): String =
-        notesToFormat
-            .joinToString(separator = "\n") { note ->
-                carList.indexOf(note).toString() + ": " + note.toString()
+    private fun formatListString(carsToFormat: List<Car>): String =
+        carsToFormat
+            .joinToString(separator = "\n") { car ->
+                carList.indexOf(car).toString() + ": " + car.toString()
             }
 
     private var carList = ArrayList<Car>()
@@ -37,3 +37,4 @@ class CarAPI {
         if  (carList.isEmpty()) "No Cars stored in the system"
         else formatListString(carList)
 }
+
