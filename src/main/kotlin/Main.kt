@@ -125,14 +125,16 @@ fun addCar() {
 
 fun remove() {
     var option: Int
-    do {
-        println("> ----------------------------------")
-        println(">          REMOVE MENU             |")
-        println("> ----------------------------------")
-        println(">   1) Remove Car                  |")
-        println(">   2) Remove Part                 |")
-        println(">   0) Return to Main Menu         |")
-        println("> ----------------------------------")
+    do {println("""
+            > ----------------------------------
+            > |         REMOVE MENU             |
+            > ----------------------------------
+            > |   1) Remove Car                |
+            > |   2) Remove Part               |
+            > |   0) Return to Main Menu       |
+            > ----------------------------------
+            > """.trimMargin(">"))
+
         option = readNextInt("Enter an option: ")
         when (option) {
             1 -> removeCar()
