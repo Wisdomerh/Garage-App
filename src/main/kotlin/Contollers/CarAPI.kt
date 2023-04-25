@@ -33,4 +33,7 @@ class CarAPI {
     fun numberOfCars(): Int {
         return carList.size
     }
+    fun listAllCars(): String =
+        if  (carList.isEmpty()) "No Cars stored in the system"
+        else formatListString(carList)
 }
