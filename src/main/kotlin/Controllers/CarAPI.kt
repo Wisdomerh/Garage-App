@@ -50,7 +50,7 @@ class CarAPI() {
             Make: ${car.make}
             Model: ${car.model}
             Year: ${car.year}
-            Color: ${car.color}
+            Color: ${car.colour}
             Price: ${car.price}
             Car Repaired: ${if (car.isCarRepaired) "Yes" else "No"}
             -------------------------------------
@@ -84,6 +84,12 @@ class CarAPI() {
         }
 
         return matchingCars
+    }
+    fun searchCarsByYear(year: Int): List<Car> {
+        return carList.filter { it.year == year }
+    }
+    fun searchByColour(colour: String): List<Car> {
+        return carList.filter { it.colour==colour }
     }
 
 
