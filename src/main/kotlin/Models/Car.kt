@@ -8,7 +8,7 @@ data class Car(
     val color: String,
     val price: Double,
     var isCarRepaired: Boolean = false,
-    val parts: List<Parts> = listOf()
+    val parts: MutableList<Parts> = mutableListOf()
 ) {
     override fun toString(): String {
         val repaired = if (isCarRepaired) "Yes" else "No"
@@ -21,10 +21,11 @@ Color:        $color
 Price:        $price
 Car Repaired: $repaired
 ---------------------------
-        Parts:        ${if (parts.isNotEmpty()) "\n" else ""}${parts.joinToString(separator = "\n")}
+        Parts: (${parts.size}):            ${parts.joinToString(separator = "\n")}
         
     """.trimIndent()
-    }
+}
 
 }
+
 
