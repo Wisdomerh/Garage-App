@@ -8,7 +8,7 @@ data class Car(
     val color: String,
     val price: Double,
     var isCarRepaired: Boolean = false,
-    val parts: MutableList<Parts> = mutableListOf()
+    var parts: MutableList<Parts> = mutableListOf()
 ) {
     override fun toString(): String {
         val repaired = if (isCarRepaired) "Yes" else "No"

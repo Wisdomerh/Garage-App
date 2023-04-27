@@ -1,8 +1,8 @@
 
-import Contollers.CarAPI
-import Contollers.PartsAPI
 import Models.Car
 import Models.Parts
+import Controllers.CarAPI
+import Controllers.PartsAPI
 import utils.ScannerInput
 import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
@@ -11,7 +11,8 @@ import utils.ScannerInput.readYesNo
 
 private val carAPI = CarAPI()
 private val partsAPI = PartsAPI()
-private val partsList = mutableListOf<Parts>()
+
+
 // This is the main function which is the entry point of the program
 fun main(args: Array<String>) {
     // This function runs the main menu of the application
@@ -111,6 +112,7 @@ fun add() {
     }
 }
 
+
     // This function adds a new car to the garage
 fun addCar() {
     val make = readNextLine("Enter the make of the car: ")
@@ -121,7 +123,7 @@ fun addCar() {
     val isRepaired = readYesNo("Is the car repaired? (y/n): ")
     if (isRepaired == true) {
         println("Adding parts for ${make} ${model} (${year})")
-
+       val partsList = mutableListOf<Parts>()
         val partName = readNextLine("Enter part name: ")
         val partNumber = readNextLine("Enter part number: ")
         val manufacturer = readNextLine("Enter manufacturer: ")
@@ -136,7 +138,7 @@ fun addCar() {
             println("Unable to add car.")
         }
     } else if (isRepaired == false) {
-        val isAdded = carAPI.add(Car(make, model, year, color, price, isRepaired))
+        val isAdded = carAPI.add(Car(make,model, year, color, price, isRepaired))
 
 
         if (isAdded) {
@@ -159,26 +161,6 @@ fun addPart() {
         println("Unable to add part.")
     }
 }
-
-fun addPartToCar() {
-    val car = carAPI.listAllCars().getOrNull(readNextInt("Enter the index of the car you want to add a part to: "))
-    if (car == null) {
-        println("> Unable to find car.")
-        return
-    }
-
-    val part = partsAPI.listAllParts().getOrNull(readNextInt("Enter the index of the part you want to add to the car: "))
-    car.Parts.add(part)
-    if (part == null) {
-        println("> Unable to find part.")
-        return
-    }
-
-    println("> Part added to car successfully!")
-}
-
-
-
 
 fun remove() {
     var option: Int
@@ -218,6 +200,7 @@ fun removeCar() {
 }
 
 fun removePart() {
+
     listParts()
     if (partsAPI.numberOfParts() > 0) {
         //only ask the user to choose the car to remove if parts exist
@@ -262,6 +245,44 @@ fun list() {
         }
     } while (choice != 0)
 }
+
+
+
+
+    fun addPartToCar() {
+        // Display list of cars
+        carAPI.listAllCars()
+
+        // Get the car index from the user
+        val carIndex = readNextInt("Select a car by index to add part: ")
+        if (carIndex == null || carIndex !in 0 until carAPI.carList.size) {
+            println("Invalid car index.")
+            return
+        }
+
+        // Display list of parts from the partsAPI instance passed in from CarAPI
+        partsAPI.listAllParts()
+
+        // Get the part index from the user
+        val partIndex = readNextInt("Select a part by index to add to the car: ")
+        if (partIndex == null || partIndex !in 0 until partsAPI.partList.size) {
+            println("Invalid part index.")
+            return
+        }
+
+        // Add the part to the car using the partsAPI instance passed in from CarAPI
+        val part = partsAPI.getPart(partIndex)
+        if (part == null) {
+            println("Invalid part index.")
+            return
+        }
+        carAPI.addPartToCar(carIndex, part)
+        println("Part added to car successfully.")
+    }
+
+
+
+
 
 fun listCarsWithParts() {
     println( carAPI.listCarAndParts())
