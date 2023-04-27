@@ -46,12 +46,14 @@ class CarAPI() {
             carList.mapIndexed { index, car ->
                 """
          
-           Index: ${index} Make: ${car.make}
+            Index: ${index} 
+            Make: ${car.make}
             Model: ${car.model}
             Year: ${car.year}
             Color: ${car.color}
             Price: ${car.price}
             Car Repaired: ${if (car.isCarRepaired) "Yes" else "No"}
+            -------------------------------------
             """.trimIndent()
             }
         }
@@ -67,6 +69,21 @@ class CarAPI() {
         val car = carList[carIndex]
         car.parts.add(part)
         println("Part added to car successfully.")
+    }
+    fun searchMakeOrModel(make: String, model: String): List<Car> {
+        val matchingCars = mutableListOf<Car>()
+
+        for (car in carList) {
+            if (car.make == make || car.model == model) {
+                matchingCars.add(car)
+            }
+        }
+
+        if (matchingCars.isEmpty()) {
+            println("No cars found for make=$make and model=$model.")
+        }
+
+        return matchingCars
     }
 
 

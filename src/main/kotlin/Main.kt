@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
 // This function displays the main menu options and returns the user's choice
 fun mainMenu() : Int {
     // This function reads an integer input from the user and displays the menu options
-    return ScannerInput.readNextInt(""" 
+    return readNextInt(""" 
          > ----------------------------------
          > |         GARAGE APP             |
          > ----------------------------------
@@ -40,24 +40,6 @@ fun mainMenu() : Int {
          > ==>> """.trimMargin(">"))
 }
 
-// This function displays the search menu options and returns the user's choice
-fun searchMenu() : Int {
-    // This function reads an integer input from the user and displays the search menu options
-    return ScannerInput.readNextInt(""" 
-         > ----------------------------------
-         > |         GARAGE APP             |
-         > ----------------------------------
-         > |    SEARCH MENU                 |
-         > |   1) Search by model           |
-         > |   2) Search by make            |
-         > |   3) Search by year            |
-         > |   4) Search by color           |
-         > |   5) Search by price           |
-         > ----------------------------------
-         > |   0) Return to Main Menu       |
-         > ----------------------------------
-         > ==>> """.trimMargin(">"))
-}
 
 // This function runs the main menu of the application
 fun runMenu() {
@@ -72,7 +54,7 @@ fun runMenu() {
            // 3  -> updateCar()
             4  -> remove()
             // If the user chooses to search for cars, display the search menu and read the user's choice
-           // 5  -> searchMenu()
+            5  -> searchMenu()
             0  -> exitApp()
             else -> println("Invalid option entered: ${option}")
         }
@@ -251,7 +233,7 @@ fun list() {
 
     fun addPartToCar() {
         // Display list of cars
-        carAPI.listAllCars()
+        println(carAPI.listAllCars())
 
         // Get the car index from the user
         val carIndex = readNextInt("Select a car by index to add part: ")
@@ -261,7 +243,7 @@ fun list() {
         }
 
         // Display list of parts from the partsAPI instance passed in from CarAPI
-        partsAPI.listAllParts()
+        println( partsAPI.listAllParts())
 
         // Get the part index from the user
         val partIndex = readNextInt("Select a part by index to add to the car: ")
@@ -277,13 +259,87 @@ fun list() {
             return
         }
         carAPI.addPartToCar(carIndex, part)
-        println("Part added to car successfully.")
+
     }
 
+fun searchMakeModel(){
+    // Get the make and model from the user
+    val make = readNextLine("Enter the make of the car: ")
+    val model = readNextLine("Enter the model of the car: ")
 
+    // Search for cars with matching make and model
+    val matchingCars = carAPI.searchMakeOrModel(make, model)
 
+    // Display the results
+    if (matchingCars.isEmpty()) {
+        println("No cars found with make '$make' and model '$model'.")
+    } else {
+        println("Found ${matchingCars.size} car(s) with make '$make' and model '$model':")
+        for (car in matchingCars) {
+            println(car)
+        }
+    }
 
+}
 
+fun searchMenu() : Int {
+    var choice: Int
+
+    do {
+        println("> ----------------------------------")
+        println("> |         GARAGE APP             |")
+        println("> ----------------------------------")
+        println("> |        SEARCH MENU             |")
+        println("> |   1) Search for a car          |")
+        println("> |   2) Search for a part         |")
+        println("> ----------------------------------")
+        println("> |   0) Return to Main Menu       |")
+        println("> ----------------------------------")
+
+        choice = readNextInt("Enter your choice: ")
+
+        when (choice) {
+            1 -> searchCar()
+            //2 -> searchParts()
+            0 -> println("Returning to main menu...")
+            else -> println("Invalid choice. Please try again.")
+        }
+    } while (choice != 0)
+
+    return choice
+}
+
+// This function displays the search menu options and returns the user's choice
+fun searchCar() {
+    var choice: Int
+
+    do {
+        val searchCar = """
+            > ----------------------------------
+            > |         GARAGE APP             |
+            > ----------------------------------
+            > |    SEARCH CAR                  |
+            > |   1) Search by make and model  |
+            > |   2) Search by year            |
+            > |   3) Search by color           |
+            > |   4) Search by price           |
+            > ----------------------------------
+            > |   0) Return to Main Menu       |
+            > ----------------------------------
+            > ==>> """.trimMargin(">")
+
+        choice = readNextInt(searchCar)
+
+        when (choice) {
+            1 -> searchMakeModel()  // Search by make and model
+           // 2 -> searchByYear()     // Search by year
+           // 3 -> searchByColor()    // Search by color
+           // 4 -> searchByPrice()    // Search by price
+           // 0 -> println("Returning to main menu...")
+            else -> println("Invalid choice. Please enter a number between 1 and 4.")
+        }
+    } while (choice != 0)
+}
 fun listCarsWithParts() {
     println( carAPI.listCarAndParts())
 }
