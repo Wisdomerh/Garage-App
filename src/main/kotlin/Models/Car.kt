@@ -21,7 +21,8 @@ Color:        $color
 Price:        $price
 Car Repaired: $repaired
 ---------------------------
-        Parts: (${parts.size}):            ${parts.joinToString(separator = "\n")}
+Parts: (${parts.size}):            
+${parts.joinToString(separator = "\n")}
         
     """.trimIndent()
 }
