@@ -332,7 +332,7 @@ fun searchCar() {
 
         when (choice) {
             1 -> searchMakeModel()  // Search by make and model
-           // 2 -> searchByYear()     // Search by year
+            2 -> searchByYear()     // Search by year
            // 3 -> searchByColor()    // Search by color
            // 4 -> searchByPrice()    // Search by price
            // 0 -> println("Returning to main menu...")
@@ -340,6 +340,29 @@ fun searchCar() {
         }
     } while (choice != 0)
 }
+
+fun searchByYear() {
+    val year = readNextInt("Enter the year of the car to search for: ")
+
+    if (year == null) {
+        println("Invalid year. Please enter a valid year.")
+        return
+    }
+
+    val matchingCars = carAPI.searchCarsByYear(year)
+
+    if (matchingCars.isEmpty()) {
+        println("No cars found matching the year $year.")
+        return
+    }
+
+    println("Found ${matchingCars.size} car(s) matching the year $year:")
+    for (car in matchingCars) {
+        println(car)
+    }
+}
+
+
 fun listCarsWithParts() {
     println( carAPI.listCarAndParts())
 }

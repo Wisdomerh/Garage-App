@@ -85,6 +85,9 @@ class CarAPI() {
 
         return matchingCars
     }
+    fun searchCarsByYear(year: Int): List<Car> {
+        return carList.filter { it.year == year }
+    }
 
 
 }
