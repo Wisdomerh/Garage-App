@@ -1,6 +1,5 @@
-package Contollers
+package Controllers
 
-import Models.Car
 import Models.Parts
 
 class PartsAPI {
@@ -9,18 +8,20 @@ class PartsAPI {
             .joinToString(separator = "\n") { part ->
                 partList.indexOf(part).toString() + ": " + part.toString()
             }
-
-    private var partList = ArrayList<Parts>()
+ var partList = ArrayList<Parts>()
 
     fun add(part: Parts): Boolean {
         return partList.add(part)
     }
+
+
     fun listAllParts(): String =
         if (partList.isEmpty()) {
-            "No cars stored in the system"
+            "No parts stored in the system"
         } else {
             formatListString(partList)
         }
+
     fun removePart(indexToDelete: Int): Parts? {
         return if (isValidListIndex(indexToDelete, partList)) {
             partList.removeAt(indexToDelete)
@@ -33,4 +34,18 @@ class PartsAPI {
     fun numberOfParts(): Int {
         return partList.size
     }
+    fun isValidIndex(index: Int): Parts? {
+        return if (partList.isNotEmpty() && index in 0 until partList.size) partList[index] else null
+    }
+    fun getPart(index: Int): Parts? {
+        // Check if the index is within the bounds of the parts list
+        if (index < 0 || index >= partList.size) {
+            println("Invalid part index.")
+            return null
+        }
+        // Return the part object corresponding to the given index
+        return partList[index]
+    }
+
 }
+

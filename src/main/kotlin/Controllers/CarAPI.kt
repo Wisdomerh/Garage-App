@@ -1,20 +1,21 @@
-package Contollers
+package Controllers
 
 import Models.Car
+import Models.Parts
 
-class CarAPI {
+
+class CarAPI() {
     private fun formatListString(carsToFormat: List<Car>): String =
         carsToFormat
             .joinToString(separator = "\n") { car ->
                 carList.indexOf(car).toString() + ": " + car.toString()
             }
 
-    private var carList = ArrayList<Car>()
+    var carList = ArrayList<Car>()
 
     fun add(car: Car): Boolean {
         return carList.add(car)
     }
-
 
     fun isValidListIndex(index: Int, list: List<Any>): Boolean {
         return (index >= 0 && index < list.size)
@@ -26,9 +27,10 @@ class CarAPI {
         } else null
     }
 
-    fun isValidIndex(index: Int) :Boolean{
-        return isValidListIndex(index, carList);
+    fun isValidIndex(index: Int): Car? {
+        return if (carList.isNotEmpty() && index in 0 until carList.size) carList[index] else null
     }
+
 
     fun numberOfCars(): Int {
         return carList.size
@@ -41,11 +43,32 @@ class CarAPI {
         return if (carList.isEmpty()) {
             listOf("No Cars stored in the system")
         } else {
-            carList.map {
-                "Make: ${it.make}, Model: ${it.model}, Year: ${it.year}, Color: ${it.color}, Price: ${it.price}"
+            carList.mapIndexed { index, car ->
+                """
+         
+           Index: ${index} Make: ${car.make}
+            Model: ${car.model}
+            Year: ${car.year}
+            Color: ${car.color}
+            Price: ${car.price}
+            Car Repaired: ${if (car.isCarRepaired) "Yes" else "No"}
+            """.trimIndent()
             }
         }
     }
+    fun addPartToCar(carIndex: Int, part: Parts) {
+        // Check if the car index is within the bounds of the car list
+        if (!isValidListIndex(carIndex, carList)) {
+            println("Invalid car index.")
+            return
+        }
+
+        // Add the part to the car's parts list
+        val car = carList[carIndex]
+        car.parts.add(part)
+        println("Part added to car successfully.")
+    }
+
 
 }
 
