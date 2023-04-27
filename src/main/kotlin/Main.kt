@@ -333,12 +333,23 @@ fun searchCar() {
         when (choice) {
             1 -> searchMakeModel()  // Search by make and model
             2 -> searchByYear()     // Search by year
-           // 3 -> searchByColor()    // Search by color
+            3 -> searchByColour()    // Search by colour
            // 4 -> searchByPrice()    // Search by price
            // 0 -> println("Returning to main menu...")
             else -> println("Invalid choice. Please enter a number between 1 and 4.")
         }
     } while (choice != 0)
+}
+
+fun searchByColour() {
+    val colour = readNextLine("Enter a colour to search for: ")
+    val carsByColour = carAPI.searchByColour(colour)
+    if (carsByColour.isNotEmpty()) {
+        println("Found ${carsByColour.size} car(s) with $colour colour:")
+        carsByColour.forEach { println(it) }
+    } else {
+        println("No cars found with $colour colour.")
+    }
 }
 
 fun searchByYear() {

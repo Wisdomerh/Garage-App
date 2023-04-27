@@ -5,7 +5,7 @@ data class Car(
     val make: String,
     val model: String,
     val year: Int,
-    val color: String,
+    val colour: String,
     val price: Double,
     var isCarRepaired: Boolean = false,
     var parts: MutableList<Parts> = mutableListOf()
@@ -17,7 +17,7 @@ data class Car(
 Make:         $make
 Model:        $model
 Year:         $year
-Color:        $color
+Colour:       $colour
 Price:        $price
 Car Repaired: $repaired
 ---------------------------
