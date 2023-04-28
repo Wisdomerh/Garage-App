@@ -27,13 +27,13 @@ fun mainMenu() : Int {
          > |         GARAGE APP             |
          > ----------------------------------
          > |    MENU                        |
-         > |   1) Add a car                 |
-         > |   2) List                      |
-         > |   3) Update a car              |
-         > |   4) Remove a car              |
-         > |   5) Search cars               |
-         > |   7) Save garage               |
-         > |   8) Load garage               |
+         > |   1) Add Car or Part           |
+         > |   2) List Car or Part          |
+         > |   3) Update Car or Part        |
+         > |   4) Remove Car or Part        |
+         > |   5) Search Cars Or Parts      |
+         > |   21) Save garage               |
+         > |   22) Load garage               |
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -115,9 +115,9 @@ fun addCar() {
         partsAPI.add(part)
         val isAdded = carAPI.add(Car(make, model, year, color, price, isRepaired, partsList))
         if (isAdded) {
-            println("Car added successfully!")
+            println("Car and part added successfully!")
         } else {
-            println("Unable to add car.")
+            println("Unable to add car and part")
         }
     } else if (isRepaired == false) {
         val isAdded = carAPI.add(Car(make,model, year, color, price, isRepaired))
@@ -322,7 +322,6 @@ fun searchCar() {
             > |   1) Search by make and model  |
             > |   2) Search by year            |
             > |   3) Search by color           |
-            > |   4) Search by price           |
             > ----------------------------------
             > |   0) Return to Main Menu       |
             > ----------------------------------
@@ -331,12 +330,11 @@ fun searchCar() {
         choice = readNextInt(searchCar)
 
         when (choice) {
-            1 -> searchMakeModel()  // Search by make and model
-            2 -> searchByYear()     // Search by year
-            3 -> searchByColour()    // Search by colour
-           // 4 -> searchByPrice()    // Search by price
+            1 -> searchMakeModel()
+            2 -> searchByYear()
+            3 -> searchByColour()
             0 -> println("Returning to main menu...")
-            else -> println("Invalid choice. Please enter a number between 1 and 4.")
+            else -> println("Invalid choice. Please enter a number between 1 and 3")
         }
     } while (choice != 0)
 }
@@ -379,9 +377,8 @@ fun searchParts() {
         println(
             """
             > ----------------------------------
-            > |         GARAGE APP             |
-            > ----------------------------------
             > |       SEARCH PARTS MENU        |
+            > ----------------------------------
             > |   1) Search by name or number  |
             > ----------------------------------
             > |   0) Return to Main Menu       |
@@ -414,14 +411,18 @@ fun searchParts() {
         println(carAPI.listCarAndParts())
     }
 fun update() {
+    val menu = """
+        > ----------------------------------
+        > |           UPDATE MENU           |
+        > ----------------------------------
+        > |       1. Update Car             |
+        > |       2. Update Part            |
+        > |       0. Back to Main Menu      |
+        > ----------------------------------
+        """.trimIndent()
+
     while (true) {
-        println(
-            """
-            1. Update Car
-            2. Update Part
-            0. Back to Main Menu
-            """.trimIndent()
-        )
+        println(menu)
 
         when (readNextInt("Enter your choice: ")) {
             1 -> updateCar()
@@ -433,7 +434,9 @@ fun update() {
 }
 
 
+
 fun updateCar() {
+    println(carAPI.listAllCars())
     val carIndex = readNextInt("Enter the index of the car to update:")
 
     val carToUpdate = carAPI.getCar(carIndex)
@@ -461,6 +464,7 @@ fun updateCar() {
 }
 
 fun updatePart() {
+    println( partsAPI.listAllParts())
     val partIndex = readNextInt("Enter the index of the part to update:")
 
     val partToUpdate = partsAPI.getPart(partIndex)
