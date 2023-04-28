@@ -4,27 +4,36 @@ import Models.Car
 import Models.Parts
 
 
-class CarAPI() {
+class CarAPI {
     private fun formatListString(carsToFormat: List<Car>): String =
         carsToFormat
             .joinToString(separator = "\n") { car ->
                 carList.indexOf(car).toString() + ": " + car.toString()
             }
 
-    var carList = ArrayList<Car>()
+     var carList = ArrayList<Car>()
 
     fun add(car: Car): Boolean {
         return carList.add(car)
     }
 
     fun isValidListIndex(index: Int, list: List<Any>): Boolean {
-        return (index >= 0 && index < list.size)
+        return try {
+            (index >= 0 && index < list.size)
+        } catch (e: IndexOutOfBoundsException) {
+            println("Invalid index. ${e.message}")
+            false
+        }
     }
+
 
     fun removeCar(indexToDelete: Int): Car? {
         return if (isValidListIndex(indexToDelete, carList)) {
             carList.removeAt(indexToDelete)
-        } else null
+        } else {
+            println("Invalid car index.")
+            null
+        }
     }
 
     fun isValidIndex(index: Int): Car? {
@@ -35,6 +44,7 @@ class CarAPI() {
     fun numberOfCars(): Int {
         return carList.size
     }
+
     fun listCarAndParts(): String =
         if  (carList.isEmpty()) "No Cars stored in the system"
         else formatListString(carList)
@@ -58,10 +68,16 @@ class CarAPI() {
             }
         }
     }
+
     fun addPartToCar(carIndex: Int, part: Parts) {
         // Check if the car index is within the bounds of the car list
-        if (!isValidListIndex(carIndex, carList)) {
-            println("Invalid car index.")
+        try {
+            if (!isValidListIndex(carIndex, carList)) {
+                println("Invalid car index.")
+                return
+            }
+        } catch (e: NumberFormatException) {
+            println("Invalid input. ${e.message}")
             return
         }
 
@@ -70,6 +86,8 @@ class CarAPI() {
         car.parts.add(part)
         println("Part added to car successfully.")
     }
+
+
     fun searchMakeOrModel(make: String, model: String): List<Car> {
         val matchingCars = mutableListOf<Car>()
 
@@ -85,13 +103,13 @@ class CarAPI() {
 
         return matchingCars
     }
+
     fun searchCarsByYear(year: Int): List<Car> {
         return carList.filter { it.year == year }
     }
+
     fun searchByColour(colour: String): List<Car> {
         return carList.filter { it.colour==colour }
     }
-
-
 }
 
