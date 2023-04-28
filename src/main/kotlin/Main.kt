@@ -376,14 +376,18 @@ fun searchParts() {
     var choice: Int
 
     do {
-        println("> ----------------------------------")
-        println("> |         GARAGE APP             |")
-        println("> ----------------------------------")
-        println("> |       SEARCH PARTS MENU        |")
-        println("> |   1) Search by name or number  |")
-        println("> ----------------------------------")
-        println("> |   0) Return to Main Menu       |")
-        println("> ----------------------------------")
+        println(
+            """
+            > ----------------------------------
+            > |         GARAGE APP             |
+            > ----------------------------------
+            > |       SEARCH PARTS MENU        |
+            > |   1) Search by name or number  |
+            > ----------------------------------
+            > |   0) Return to Main Menu       |
+            > ----------------------------------
+            """.trimIndent()
+        )
 
         choice = readNextInt("Enter your choice: ")
 
@@ -398,6 +402,7 @@ fun searchParts() {
                     println("No results found.")
                 }
             }
+
             0 -> println("Returning to main menu...")
             else -> println("Invalid choice. Please try again.")
         }
@@ -405,6 +410,7 @@ fun searchParts() {
 }
 
 
-fun listCarsWithParts() {
-    println( carAPI.listCarAndParts())
-}
+    fun listCarsWithParts() {
+        println(carAPI.listCarAndParts())
+    }
+
