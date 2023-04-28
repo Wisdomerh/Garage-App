@@ -51,7 +51,7 @@ fun runMenu() {
         when (option) {
             1  -> add()
             2  -> list()
-           // 3  -> updateCar()
+            3  -> updateCar()
             4  -> remove()
             // If the user chooses to search for cars, display the search menu and read the user's choice
             5  -> searchMenu()
@@ -413,4 +413,33 @@ fun searchParts() {
     fun listCarsWithParts() {
         println(carAPI.listCarAndParts())
     }
+
+fun updateCar() {
+    val carIndex = readNextInt("Enter the index of the car to update:")
+
+    val carToUpdate = carAPI.getCar(carIndex)
+    if (carToUpdate == null) {
+        println("Invalid car index.")
+        return
+    }
+
+    val newMake = readNextLine("Enter the new make (leave blank to keep '${carToUpdate.make}'): ")
+    val newModel = readNextLine("Enter the new model (leave blank to keep '${carToUpdate.model}'): ")
+    val newYear = readNextInt("Enter the new year (leave blank to keep '${carToUpdate.year}'): ")
+    val newColor = readNextLine("Enter the new colour (leave blank to keep '${carToUpdate.colour}'): ")
+    val newPrice = readNextDouble("Enter the new price (leave blank to keep '${carToUpdate.price}'): ")
+
+    val updatedCar = Car(
+        if (newMake.isNotBlank()) newMake else carToUpdate.make,
+        if (newModel.isNotBlank()) newModel else carToUpdate.model,
+        if (newYear != null) newYear else carToUpdate.year,
+        if (newColor.isNotBlank()) newColor else carToUpdate.colour,
+        if (newPrice != null) newPrice else carToUpdate.price
+    )
+
+    carAPI.updateCar(carIndex, updatedCar)
+    println("Car updated successfully.")
+}
+
+
 

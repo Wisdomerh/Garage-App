@@ -111,5 +111,23 @@ class CarAPI {
     fun searchByColour(colour: String): List<Car> {
         return carList.filter { it.colour==colour }
     }
+
+    fun updateCar(indexToUpdate: Int, newCarInfo: Car): Boolean {
+        if (!isValidListIndex(indexToUpdate, carList)) {
+            println("Invalid car index.")
+            return false
+        }
+
+        carList[indexToUpdate] = newCarInfo
+        return true
+    }
+    fun getCar(index: Int): Car? {
+        return if (isValidListIndex(index, carList)) {
+            carList[index]
+        } else {
+            println("Invalid part index.")
+            null
+        }
+    }
 }
 
