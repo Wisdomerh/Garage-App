@@ -46,6 +46,8 @@ class PartsAPI {
         // Return the part object corresponding to the given index
         return partList[index]
     }
-
+    fun searchByNameOrNumber(query: String): List<Parts> {
+        return partList.filter { it.partName == query || it.partNumber == query }
+    }
 }
 
