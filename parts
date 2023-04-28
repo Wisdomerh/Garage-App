@@ -1,0 +1,10 @@
+<object-stream>
+  <list>
+    <Models.Parts>
+      <partName>clutch</partName>
+      <partNumber>32444</partNumber>
+      <manufacturer>LUK</manufacturer>
+      <price>32444.0</price>
+    </Models.Parts>
+  </list>
+</object-stream>
