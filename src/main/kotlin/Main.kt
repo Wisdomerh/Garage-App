@@ -300,7 +300,7 @@ fun searchMenu() : Int {
 
         when (choice) {
             1 -> searchCar()
-            //2 -> searchParts()
+            2 -> searchParts()
             0 -> println("Returning to main menu...")
             else -> println("Invalid choice. Please try again.")
         }
@@ -335,7 +335,7 @@ fun searchCar() {
             2 -> searchByYear()     // Search by year
             3 -> searchByColour()    // Search by colour
            // 4 -> searchByPrice()    // Search by price
-           // 0 -> println("Returning to main menu...")
+            0 -> println("Returning to main menu...")
             else -> println("Invalid choice. Please enter a number between 1 and 4.")
         }
     } while (choice != 0)
@@ -371,6 +371,37 @@ fun searchByYear() {
     for (car in matchingCars) {
         println(car)
     }
+}
+fun searchParts() {
+    var choice: Int
+
+    do {
+        println("> ----------------------------------")
+        println("> |         GARAGE APP             |")
+        println("> ----------------------------------")
+        println("> |       SEARCH PARTS MENU        |")
+        println("> |   1) Search by name or number  |")
+        println("> ----------------------------------")
+        println("> |   0) Return to Main Menu       |")
+        println("> ----------------------------------")
+
+        choice = readNextInt("Enter your choice: ")
+
+        when (choice) {
+            1 -> {
+                val query = readNextLine("Enter the name or part number to search for: ")
+                val results = partsAPI.searchByNameOrNumber(query!!)
+                if (results.isNotEmpty()) {
+                    println("Results:")
+                    results.forEach { println(it) }
+                } else {
+                    println("No results found.")
+                }
+            }
+            0 -> println("Returning to main menu...")
+            else -> println("Invalid choice. Please try again.")
+        }
+    } while (choice != 0)
 }
 
 
