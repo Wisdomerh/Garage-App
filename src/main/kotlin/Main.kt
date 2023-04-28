@@ -51,7 +51,7 @@ fun runMenu() {
         when (option) {
             1  -> add()
             2  -> list()
-            //3  -> update()
+            3  -> update()
             4  -> remove()
             // If the user chooses to search for cars, display the search menu and read the user's choice
             5  -> searchMenu()
@@ -413,6 +413,25 @@ fun searchParts() {
     fun listCarsWithParts() {
         println(carAPI.listCarAndParts())
     }
+fun update() {
+    while (true) {
+        println(
+            """
+            1. Update Car
+            2. Update Part
+            0. Back to Main Menu
+            """.trimIndent()
+        )
+
+        when (readNextInt("Enter your choice: ")) {
+            1 -> updateCar()
+            2 -> updatePart()
+            0 -> return println("Returning to main menu...")
+            else -> println("Invalid option. Please try again.")
+        }
+    }
+}
+
 
 fun updateCar() {
     val carIndex = readNextInt("Enter the index of the car to update:")
