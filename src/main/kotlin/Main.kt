@@ -51,7 +51,7 @@ fun runMenu() {
         when (option) {
             1  -> add()
             2  -> list()
-            3  -> updateCar()
+            //3  -> update()
             4  -> remove()
             // If the user chooses to search for cars, display the search menu and read the user's choice
             5  -> searchMenu()
@@ -439,6 +439,31 @@ fun updateCar() {
 
     carAPI.updateCar(carIndex, updatedCar)
     println("Car updated successfully.")
+}
+
+fun updatePart() {
+    val partIndex = readNextInt("Enter the index of the part to update:")
+
+    val partToUpdate = partsAPI.getPart(partIndex)
+    if (partToUpdate == null) {
+        println("Invalid part index.")
+        return
+    }
+
+    val newName = readNextLine("Enter the new name (leave blank to keep '${partToUpdate.partName}'): ")
+    val newNumber = readNextLine("Enter the new part number (leave blank to keep '${partToUpdate.partNumber}'): ")
+    val newManufacturer = readNextLine("Enter the new manufacturer (leave blank to keep '${partToUpdate.manufacturer}'): ")
+    val newPrice = readNextDouble("Enter the new price (leave blank to keep '${partToUpdate.price}'): ")
+
+    val updatedPart = Parts(
+        if (newName.isEmpty()) partToUpdate.partName else newName,
+        if (newNumber.isEmpty()) partToUpdate.partNumber else newNumber,
+        if (newManufacturer.isEmpty()) partToUpdate.manufacturer else newManufacturer,
+        if (newPrice == null) partToUpdate.price else newPrice
+    )
+
+    partsAPI.updatePart(partIndex, updatedPart)
+    println("Part updated successfully.")
 }
 
 

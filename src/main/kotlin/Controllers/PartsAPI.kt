@@ -66,4 +66,14 @@ class PartsAPI {
 
         return matchingParts
     }
+
+    fun updatePart(indexToUpdate: Int, newPartInfo: Parts): Boolean  {
+        if (!isValidListIndex(indexToUpdate, partList)) {
+            println("Invalid car index.")
+            return false
+        }
+
+        partList[indexToUpdate] = newPartInfo
+        return true
+    }
 }
