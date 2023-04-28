@@ -32,8 +32,9 @@ fun mainMenu() : Int {
          > |   3) Update Car or Part        |
          > |   4) Remove Car or Part        |
          > |   5) Search Cars Or Parts      |
-         > |   21) Save garage               |
-         > |   22) Load garage               |
+         > |   6) Calculate price of parts  |
+         > |   21) Save                     |
+         > |   22) Load                     |
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -55,6 +56,7 @@ fun runMenu() {
             4  -> remove()
             // If the user chooses to search for cars, display the search menu and read the user's choice
             5  -> searchMenu()
+            6  -> calculateTotalCost()
             0  -> exitApp()
             else -> println("Invalid option entered: ${option}")
         }
@@ -488,6 +490,25 @@ fun updatePart() {
     partsAPI.updatePart(partIndex, updatedPart)
     println("Part updated successfully.")
 }
+fun calculateTotalCost() {
+    println(carAPI.listAllCars())
+    val carIndex = readNextInt("Enter the index of the car: ")
+
+    val car = carAPI.getCar(carIndex)
+    if (car == null) {
+        println("Invalid car index.")
+        return
+    }
+
+    val parts = car.parts
+    var totalCost = 0.0
+    for (part in parts) {
+        totalCost += part.price
+    }
+
+    println("The total cost of parts for ${car.make} ${car.model} (${car.year}) is: \$$totalCost")
+}
+
 
 
 
