@@ -3,14 +3,15 @@ import Models.Car
 import Models.Parts
 import Controllers.CarAPI
 import Controllers.PartsAPI
-import utils.ScannerInput
+import persistence.XMLSerializer
 import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import utils.ScannerInput.readYesNo
+import java.io.File
 
-private val carAPI = CarAPI()
-private val partsAPI = PartsAPI()
+private val carAPI = CarAPI(XMLSerializer(File("cars.xml")))
+private val partsAPI = PartsAPI(XMLSerializer(File("parts")))
 
 
 // This is the main function which is the entry point of the program
@@ -57,6 +58,8 @@ fun runMenu() {
             // If the user chooses to search for cars, display the search menu and read the user's choice
             5  -> searchMenu()
             6  -> calculateTotalCost()
+            21 -> save()
+            22 -> load()
             0  -> exitApp()
             else -> println("Invalid option entered: ${option}")
         }
@@ -507,6 +510,24 @@ fun calculateTotalCost() {
     }
 
     println("The total cost of parts for ${car.make} ${car.model} (${car.year}) is: \$$totalCost")
+}
+
+fun save() {
+    try {
+        carAPI.storeCars()
+        partsAPI.storeParts()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+fun load() {
+    try {
+        carAPI.loadCars()
+        partsAPI.loadParts()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
+    }
 }
 
 

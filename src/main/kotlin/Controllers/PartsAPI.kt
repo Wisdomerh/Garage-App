@@ -1,14 +1,17 @@
 package Controllers
 
+import Models.Car
 import Models.Parts
+import persistence.Serializer
 
-class PartsAPI {
+class PartsAPI(serializerType: Serializer) {
     private fun formatListString(partsToFormat: List<Parts>): String =
         partsToFormat
             .joinToString(separator = "\n") { part ->
                 partList.indexOf(part).toString() + ": " + part.toString()
             }
     var partList = ArrayList<Parts>()
+    private var serializer: Serializer = serializerType
 
     fun add(part: Parts): Boolean {
         return partList.add(part)
@@ -75,5 +78,14 @@ class PartsAPI {
 
         partList[indexToUpdate] = newPartInfo
         return true
+    }
+    @Throws(Exception::class)
+    fun loadParts() {
+        partList = serializer.read() as ArrayList<Parts>
+    }
+
+    @Throws(Exception::class)
+    fun storeParts() {
+        serializer.write(partList)
     }
 }

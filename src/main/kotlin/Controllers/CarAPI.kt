@@ -3,8 +3,10 @@ package Controllers
 import Models.Car
 import Models.Parts
 
+import persistence.Serializer
 
-class CarAPI {
+
+class CarAPI(serializerType: Serializer){
     private fun formatListString(carsToFormat: List<Car>): String =
         carsToFormat
             .joinToString(separator = "\n") { car ->
@@ -12,7 +14,7 @@ class CarAPI {
             }
 
      var carList = ArrayList<Car>()
-
+    private var serializer: Serializer = serializerType
     fun add(car: Car): Boolean {
         return carList.add(car)
     }
@@ -128,6 +130,15 @@ class CarAPI {
             println("Invalid part index.")
             null
         }
+    }
+    @Throws(Exception::class)
+    fun loadCars() {
+        carList = serializer.read() as ArrayList<Car>
+    }
+
+    @Throws(Exception::class)
+    fun storeCars() {
+        serializer.write(carList)
     }
 }
 
