@@ -34,14 +34,6 @@ class PartsAPI(serializerType: Serializer) {
         return partList.size
     }
 
-    fun isValidIndex(index: Int): Parts? {
-        return if (partList.isNotEmpty() && index in 0 until partList.size) {
-            partList[index]
-        } else {
-            println("Invalid part index.")
-            null
-        }
-    }
 
     fun getPart(index: Int): Parts? {
         return if (isValidListIndex(index, partList)) {
@@ -60,6 +52,16 @@ class PartsAPI(serializerType: Serializer) {
         }
     }
 
+    /**
+
+    Search for a part in the part list by its name or number.
+
+    @param query The string to search for, which can be either the name or number of the part.
+
+    @return A list of Parts objects that match the query.
+
+    If no parts are found, an empty list is returned and a message is printed to the console.
+     */
     fun searchByNameOrNumber(query: String): List<Parts> {
         val matchingParts = partList.filter { it.partName == query || it.partNumber == query }
 
@@ -70,12 +72,25 @@ class PartsAPI(serializerType: Serializer) {
         return matchingParts
     }
 
-    fun updatePart(indexToUpdate: Int, newPartInfo: Parts): Boolean  {
+
+    /**
+
+    Updates a part in the part list with new information.
+
+    @param indexToUpdate the index of the part to update
+
+    @param newPartInfo the new information to update the part with
+
+    @return true if the part was successfully updated, false otherwise
+     */
+    fun updatePart(indexToUpdate: Int, newPartInfo: Parts): Boolean {
+// Check if the part index is within the bounds of the part list
         if (!isValidListIndex(indexToUpdate, partList)) {
-            println("Invalid car index.")
+            println("Invalid part index.")
             return false
         }
 
+// Update the part with new information
         partList[indexToUpdate] = newPartInfo
         return true
     }

@@ -269,7 +269,7 @@ class CarAPITest {
             val loadedCars = carAPI.loadCars()
 
             // Assert that the loaded cars are the same as the stored cars
-            assertEquals(kotlin.Unit, loadedCars)
+            assertEquals(Unit, loadedCars)
         }
 
     }

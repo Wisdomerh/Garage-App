@@ -88,7 +88,7 @@ object ScannerInput {
     fun readYesNo(prompt: String): Boolean {
         while (true) {
             print(prompt)
-            when (readNextLine("").toLowerCase()) {
+            when (readNextLine("").lowercase(Locale.getDefault())) {
                 "y", "yes" -> return true
                 "n", "no" -> return false
                 else -> println("Invalid input. Please enter y or n.")
