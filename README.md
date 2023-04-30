@@ -27,7 +27,7 @@ Version 3.0 of the application introduced advanced filtering options for the inv
 # Installation
 To install the application, follow these steps:
 
-Clone this repository: git clone https://github.com/example/kotlin-garage-app.git
+Clone this repository: https://github.com/Wisdomerh/Garage-App.git
 Open the project in your preferred IDE, such as IntelliJ IDEA.
 Build and run the application from the command line using Gradle: ./gradlew run
 
