@@ -112,7 +112,7 @@ fun addCar() {
         println("Adding parts for ${make} ${model} (${year})")
        val partsList = mutableListOf<Parts>()
         val partName = readNextLine("Enter part name: ")
-        val partNumber = readNextLine("Enter part number: ")
+        val partNumber = readNextLine("Enter Part number: ")
         val manufacturer = readNextLine("Enter manufacturer: ")
         val price = readNextDouble("Enter price: ")
         val part = Parts(partName, partNumber, manufacturer, price)
