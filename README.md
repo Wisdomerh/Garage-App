@@ -1,5 +1,5 @@
 # Garage-App
-[https://www.jetbrains.com/idea/](https://www.jetbrains.com/idea/)
+<img src="https://camo.githubusercontent.com/2092bf04f4f09eaf8abc1b971bc9c9e151866592b37958752a74899a0f6a0ce0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f496e74656c6c694a253230494445412d3030303030302e7376673f7374796c653d666f722d7468652d6261646765266c6f676f3d496e74656c6c694a2d49444541266c6f676f436f6c6f723d7768697465" alt="Development" data-canonical-src="https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?style=for-the-badge&amp;logo=IntelliJ-IDEA&amp;logoColor=white" style="max-width: 100%;">
 ## Overview
 Kotlin Garage App is a console application with a user-friendly menu system that allows users to manage their garage inventory, track expenses, and schedule maintenance tasks. The application is built using the Kotlin programming language and comes with various features such as data persistence, logging capabilities, and JUnit tests.
 
