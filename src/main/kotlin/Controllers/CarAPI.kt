@@ -38,11 +38,6 @@ class CarAPI(serializerType: Serializer){
         }
     }
 
-    fun isValidIndex(index: Int): Car? {
-        return if (carList.isNotEmpty() && index in 0 until carList.size) carList[index] else null
-    }
-
-
     fun numberOfCars(): Int {
         return carList.size
     }

@@ -9,6 +9,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver
 import java.io.FileReader
 import java.io.FileWriter
 import java.lang.Exception
+import javax.naming.Context
 
 class XMLSerializer(private val file: File) : Serializer {
 

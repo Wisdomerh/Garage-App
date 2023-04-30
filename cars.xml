@@ -1,20 +1,3 @@
 <object-stream>
-  <list>
-    <Models.Car>
-      <make>toyota</make>
-      <model>corolla</model>
-      <year>2014</year>
-      <colour>blue</colour>
-      <price>32444.0</price>
-      <isCarRepaired>true</isCarRepaired>
-      <parts>
-        <Models.Parts>
-          <partName>clutch</partName>
-          <partNumber>32444</partNumber>
-          <manufacturer>LUK</manufacturer>
-          <price>32444.0</price>
-        </Models.Parts>
-      </parts>
-    </Models.Car>
-  </list>
+  <list/>
 </object-stream>
