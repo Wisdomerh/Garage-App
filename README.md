@@ -6,6 +6,44 @@ Kotlin Garage App is a console application with a user-friendly menu system that
 ## Features
 The application comes with the following features:
 
+## Main Menu:
+         > ----------------------------------
+         > |         GARAGE APP             |
+         > ----------------------------------
+         > |    MENU                        |
+         > |   1) Add Car or Part           |
+         > |   2) List Car or Part          |
+         > |   3) Update Car or Part        |
+         > |   4) Remove Car or Part        |
+         > |   5) Search Cars Or Parts      |
+         > |   6) Calculate price of parts  |
+         > |   21) Save                     |
+         > |   22) Load                     |
+         > ----------------------------------
+         > |   0) Exit                      |
+         > ----------------------------------
+         > ==>>
+         
+## Add menu:
+            > ----------------------------------
+            > |           ADD MENU             |
+            > ----------------------------------
+            > |    1) Add new car              |
+            > |    2) Add new part             |
+            > |    3) Add part to existing car |
+            > |    0) Return to Main Menu      |
+            > ----------------------------------
+            
+## Remove Menu:
+            > ----------------------------------
+            > |         REMOVE MENU            |
+            > ----------------------------------
+            > |   1) Remove Car                |
+            > |   2) Remove Part               |
+            > |   0) Return to Main Menu       |
+            > ----------------------------------
+            > 
+
 ## Inventory Management 
 Users can add, edit, and delete cars from their garage inventory, view detailed information about each car, such as make, model, and year.
 Expense Tracking: Users can track their expenses related to their cars, including fuel, repairs, and other costs.
