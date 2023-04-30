@@ -43,6 +43,8 @@ The application comes with the following features:
             > |   0) Return to Main Menu       |
             > ----------------------------------
             > 
+            
+            ### More features withtin the app!!
 
 ## Inventory Management 
 Users can add, edit, and delete cars from their garage inventory, view detailed information about each car, such as make, model, and year.
