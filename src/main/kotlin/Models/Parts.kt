@@ -8,13 +8,11 @@ data class Parts(
 ) {
     override fun toString(): String {
         return """
-       
         Part Name:    $partName
         Part Number:  $partNumber
         Manufacturer: $manufacturer
         Price:        $price
-       -----------------------------
-    """.trimIndent()
+       -----------------------------""".trimIndent()
     }
 
 
